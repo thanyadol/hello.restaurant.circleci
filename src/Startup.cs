@@ -21,6 +21,9 @@ using hello.restaurant.api.APIs.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using hello.restaurant.api.Middleware;
 using hello.restaurant.api.Extensions;
+using hello.restaurant.api.Services;
+using AutoMapper;
+using hello.restaurant.api.Mapper;
 
 namespace hello.restaurant.api
 {
@@ -54,6 +57,23 @@ namespace hello.restaurant.api
             //Set 5 min as the lifetime for the HttpMessageHandler objects in the pool used for the Catalog Typed Client 
             //services.AddHttpClient<IClientService, ClientService>()
             //.SetHandlerLifetime(TimeSpan.FromMinutes(5));
+
+            //app service
+            services.AddTransient<IRestaurantService, RestaurantService>();
+
+
+            // Auto Mapper Configurations
+
+            // Auto Mapper
+            //  services.AddAutoMapper(typeof(MappingProfile));
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.TryAddSingleton(mapper);
 
             // services.AddScoped<NorthwindContext>();
             services.AddApiVersioning();
