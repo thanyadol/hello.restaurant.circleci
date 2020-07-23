@@ -15,8 +15,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 //model
 using hello.restaurant.api.Models;
-using hello.restaurant.api.Services;
-using hello.restaurant.api.Repositories;
+//using hello.restaurant.api.Services;
+//using hello.restaurant.api.Repositories;
+using hello.restaurant.api.APIs.Services;
 
 namespace hello.restaurant.api
 {
@@ -39,14 +40,19 @@ namespace hello.restaurant.api
             services.AddDbContext<NorthwindContext>(opt =>
                 opt.UseInMemoryDatabase("Northwind"));
 
-            //dependencies graph
-            services.TryAddScoped<IBlogService, BlogService>();
-            services.TryAddScoped<IBlogRepository, BlogRepository>();   
-            
-            services.TryAddScoped<IPostService, PostService>();
-            services.TryAddScoped<IPostRepository, PostRepository>();    
+            //add an APIs Service
+            services.AddHttpClient<IGoogleService, GoogleService>().SetHandlerLifetime(TimeSpan.FromMinutes(5));
 
-            //services.AddScoped<IBlogService, BlogService>();
+            //for http request information
+            services.AddHttpContextAccessor();
+
+            //http client factory
+            //Set 5 min as the lifetime for the HttpMessageHandler objects in the pool used for the Catalog Typed Client 
+            //services.AddHttpClient<IClientService, ClientService>()
+            //.SetHandlerLifetime(TimeSpan.FromMinutes(5));
+
+            // services.AddScoped<NorthwindContext>();
+            services.AddApiVersioning();
 
             //enable Cross origin
             services.AddCors(o => o.AddPolicy("AllowCors", builder =>
