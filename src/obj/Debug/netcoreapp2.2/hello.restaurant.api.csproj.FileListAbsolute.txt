@@ -1,0 +1,6 @@
+/Users/admin/Documents/Git/hello.restaurant.api/src/obj/Debug/netcoreapp2.2/hello.restaurant.api.csprojAssemblyReference.cache
+/Users/admin/Documents/Git/hello.restaurant.api/src/obj/Debug/netcoreapp2.2/hello.restaurant.api.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/Git/hello.restaurant.api/src/obj/Debug/netcoreapp2.2/hello.restaurant.api.RazorAssemblyInfo.cache
+/Users/admin/Documents/Git/hello.restaurant.api/src/obj/Debug/netcoreapp2.2/hello.restaurant.api.RazorAssemblyInfo.cs
+/Users/admin/Documents/Git/hello.restaurant.api/src/obj/Debug/netcoreapp2.2/hello.restaurant.api.AssemblyInfoInputs.cache
+/Users/admin/Documents/Git/hello.restaurant.api/src/obj/Debug/netcoreapp2.2/hello.restaurant.api.AssemblyInfo.cs

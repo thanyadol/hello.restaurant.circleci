@@ -1,2 +1,2 @@
-# hello.restaurant.api
-an scg chemical assignment with map service
+# hello.netcore-22.aws
+hello.netcore-22.aws
