@@ -18,19 +18,23 @@ using hello.restaurant.api.Models;
 //using hello.restaurant.api.Services;
 //using hello.restaurant.api.Repositories;
 using hello.restaurant.api.APIs.Services;
+using Swashbuckle.AspNetCore.Swagger;
+using hello.restaurant.api.Middleware;
+using hello.restaurant.api.Extensions;
 
 namespace hello.restaurant.api
 {
     public class Startup
     {
+
+        public IConfiguration _configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the 
         //container.
@@ -66,6 +70,29 @@ namespace hello.restaurant.api
             //services.AddTransient<IEmailSender, AuthMessageSender>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
 
+            // Adds Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Version = "v1",
+                    Title = "hello.restaurant.api",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "thanyadol",
+                        Email = string.Empty,
+                        Url = "https://twitter.com/thanyadol"
+                    },
+                    License = new License
+                    {
+                        Name = "Use under LICX",
+                        Url = "https://example.com/license"
+                    }
+                });
+            });
+
             // ...
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -73,6 +100,7 @@ namespace hello.restaurant.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //app.UseAuthentication();
             app.UseCors("AllowCors");
 
             if (env.IsDevelopment())
@@ -86,8 +114,24 @@ namespace hello.restaurant.api
                 app.UseHsts();
             }
 
+            // Adds Swagger
+            if (_configuration.GetValue<bool>("AppSettings:Swagger:IsEnabled", false) == true)
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "VOT-API V1");
+                });
+            }
+
             //for dependency injection service
             app.ApplicationServices.GetService<IDisposable>();
+
+            app.ConfigureCustomExceptionMiddleware();
+
+            //Add our new middleware to the pipeline
+            app.UseMiddleware<LoggingMiddleware>();
+
 
             app.UseHttpsRedirection();
             app.UseMvc();

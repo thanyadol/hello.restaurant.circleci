@@ -1,6 +1,4 @@
-//using LoggerService;
-using cvx.lct.vot.api.Extensions;
-using cvx.lct.vot.api.Models;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Serilog;
-using surflex.netcore22.Models;
 using System;
 
 using System.IO;
@@ -19,7 +16,11 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cvx.lct.vot.api.Middleware
+//using LoggerService;
+using hello.restaurant.api.Models;
+using hello.restaurant.api.Extensions;
+
+namespace hello.restaurant.api.Middleware
 {
     public class LoggingMiddleware
     {
@@ -33,11 +34,11 @@ namespace cvx.lct.vot.api.Middleware
             _next = next;
             _configuration = configuration;
 
-            /* var path = $"assets/logs";
+            var path = $"assets/logs";
 
             //write file
             if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);*/
+                Directory.CreateDirectory(path);
 
             var IsEnabled = _configuration["AppSettings:LoggingMiddleware:IsEnabled"];
             if (Convert.ToBoolean(IsEnabled))
@@ -45,8 +46,8 @@ namespace cvx.lct.vot.api.Middleware
                 //logg
                 Logg = new LoggerConfiguration()
                      .MinimumLevel.Information()
-                      .WriteTo.Sink(new EntityLogEventSink())
-                     // .WriteTo.RollingFile($@"{path}/middleware.txt", retainedFileCountLimit: 7)  //to file
+                     // .WriteTo.Sink(new EntityLogEventSink())
+                     .WriteTo.RollingFile($@"{path}/middleware.txt", retainedFileCountLimit: 7)  //to file
                      .CreateLogger();
             }
             else
@@ -71,12 +72,12 @@ namespace cvx.lct.vot.api.Middleware
                 // Do something
                 //TODO: Save log to chosen datastore
                 var elapsedMs = 77;
-                var user = await this.GetHttpLoggingUserAsync(context);
+                var user = "anonymous"; //await this.GetHttpLoggingUserAsync(context);
                 var requestId = Guid.NewGuid();
 
                 //set context dor exception milldeware
                 context.Items.Add("body", body);
-                context.Items.Add("unique", user.Unique);
+                context.Items.Add("unique", user);
                 context.Items.Add("id", requestId);
                 //TODO: Save log to chosen datastore
 
@@ -88,7 +89,7 @@ namespace cvx.lct.vot.api.Middleware
                 if (!context.Request.Path.Value.Contains("hub"))
                 {
                     Logg.Information("Processed {@requestId} {@requestPath} {@requestScheme} {@trace} in {Elapsed:000} ms. by {unique} {type}",
-                                 requestId, requestPath, requestScheme, "", elapsedMs, user.Unique, EFLogType.REQUEST.GetDescription());
+                                 requestId, requestPath, requestScheme, "", elapsedMs, user, EFLogType.REQUEST.GetDescription());
                 }
 
                 context.Request.Body.Seek(0, SeekOrigin.Begin);
@@ -155,27 +156,6 @@ namespace cvx.lct.vot.api.Middleware
 
             //Return the string for the response, including the status code (e.g. 200, 404, 401, etc.)
             return $"{response.StatusCode}: {text}";
-        }
-
-        public async Task<User> GetHttpLoggingUserAsync(HttpContext context)
-        {
-            await Task.Delay(0);
-            var entity = new User() { Id = "anonymously", DisplayName = "anonymously", Unique = "anonymously" };
-            try
-            {
-
-                var sid = context.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
-                if (sid != null)
-                {
-                    entity.Unique = sid.Value;
-                    entity.Name = context.User.Claims.FirstOrDefault(c => c.Type == "name").Value;
-                }
-
-                entity.Id = context.User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-            }
-            catch (Exception) { }
-
-            return entity;
         }
     }
 }

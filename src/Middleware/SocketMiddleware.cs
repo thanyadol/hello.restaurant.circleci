@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace cvx.lct.vot.api.Services
+namespace hello.restaurant.apiServices
 {
     public class SocketMiddleware : Hub
     {

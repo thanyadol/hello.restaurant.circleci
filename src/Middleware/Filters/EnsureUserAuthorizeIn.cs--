@@ -8,15 +8,15 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Chevron.Identity;
 using Chevron.Identity.AspNet.Client;
-using cvx.lct.vot.api.Exceptions;
-using cvx.lct.vot.api.Services;
+using hello.restaurant.apiExceptions;
+using hello.restaurant.apiServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 
-namespace cvx.lct.vot.api.Filters
+namespace hello.restaurant.apiFilters
 {
     /* public abstract class ActionFilterAttribute : Attribute, IActionFilter, IFilterMetadata, 
                 IAsyncActionFilter, IResultFilter, IAsyncResultFilter, IOrderedFilter
