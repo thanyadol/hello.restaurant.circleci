@@ -24,6 +24,7 @@ using hello.restaurant.api.Extensions;
 using hello.restaurant.api.Services;
 using AutoMapper;
 using hello.restaurant.api.Mapper;
+using hello.restaurant.api.Providers;
 
 namespace hello.restaurant.api
 {
@@ -60,7 +61,9 @@ namespace hello.restaurant.api
 
             //app service
             services.AddTransient<IRestaurantService, RestaurantService>();
-
+            services.AddScoped<IRestaurantService, CachedRestaurantService>();
+            services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<ICacheProvider, CacheProvider>();
 
             // Auto Mapper Configurations
 

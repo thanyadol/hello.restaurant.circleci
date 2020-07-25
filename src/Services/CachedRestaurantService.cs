@@ -6,7 +6,7 @@ using hello.restaurant.api.Models;
 using hello.restaurant.api.Providers;
 using hello.restaurant.api.Services;
 
-namespace InMemoryCachingSample.Services
+namespace hello.restaurant.api.Services
 {
     public class CachedRestaurantService : IRestaurantService
     {
