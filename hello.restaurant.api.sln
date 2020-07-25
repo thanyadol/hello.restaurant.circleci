@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hello.restaurant.api", "src\hello.restaurant.api.csproj", "{A003CA52-3AF9-4AA0-A6DA-7B4B9C83E07A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F5CE5712-8FD6-414B-AF02-E2227DB0124F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hello.restaurant.api.test", "test\hello.restaurant.api.test.csproj", "{34121A08-7C3C-47A4-8678-9388A5BC01EE}"
 EndProject
 Global
@@ -46,8 +44,5 @@ Global
 		{34121A08-7C3C-47A4-8678-9388A5BC01EE}.Release|x64.Build.0 = Release|Any CPU
 		{34121A08-7C3C-47A4-8678-9388A5BC01EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{34121A08-7C3C-47A4-8678-9388A5BC01EE}.Release|x86.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{34121A08-7C3C-47A4-8678-9388A5BC01EE} = {F5CE5712-8FD6-414B-AF02-E2227DB0124F}
 	EndGlobalSection
 EndGlobal

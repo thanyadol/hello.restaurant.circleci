@@ -1,5 +1,4 @@
-using hello.restaurant.api.Repositories;
-using hello.restaurant.api.Services;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
