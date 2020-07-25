@@ -34,7 +34,7 @@ namespace cvx.lct.vot.api.Controllers
             _restaurantService = restaurantService ?? throw new ArgumentNullException(nameof(restaurantService));
         }
 
-        [EnableCors("AllowCores")]
+        [EnableCors("AllowCors")]
         [Route("list")]
         [HttpGet]
         [ProducesResponseType(typeof(Restaurant), StatusCodes.Status200OK)]

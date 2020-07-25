@@ -34,7 +34,7 @@ namespace hello.restaurant.api.APIs.Controller
         }
 
 
-        [EnableCors("AllowCores")]
+        [EnableCors("AllowCors")]
         [Route("place/textsearch")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PlaceAsync>), StatusCodes.Status200OK)]

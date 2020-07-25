@@ -33,7 +33,7 @@ namespace hello.restaurant.api.Controllers
 
 
 
-        [EnableCors("AllowCores")]
+        [EnableCors("AllowCors")]
         [Route("")]
         [HttpGet]
         public ActionResult<string> Index()
@@ -45,7 +45,7 @@ namespace hello.restaurant.api.Controllers
         }
 
         //[AllowAnonymous]
-        [EnableCors("AllowCores")]
+        [EnableCors("AllowCors")]
         [Route("hosting")]
         [HttpGet]
         public ActionResult<string> Hosting()
@@ -54,7 +54,7 @@ namespace hello.restaurant.api.Controllers
         }
 
         //[AllowAnonymous]
-        [EnableCors("AllowCores")]
+        [EnableCors("AllowCors")]
         [Route("health")]
         [HttpGet]
         public ActionResult<Health> Health()
@@ -63,7 +63,7 @@ namespace hello.restaurant.api.Controllers
         }
 
         //[AllowAnonymous]
-        [EnableCors("AllowCores")]
+        [EnableCors("AllowCors")]
         [Route("throw")]
         [HttpGet]
         public ActionResult<string> Throw()

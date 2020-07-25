@@ -83,7 +83,10 @@ namespace hello.restaurant.api
             {
                 builder.AllowAnyOrigin()
                     .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    .AllowAnyHeader()
+                    .WithOrigins(_configuration.GetValue<string>("AppSettings:CorsUrl", string.Empty))
+                    //.WithOrigins(Environment.Configuration.Instance.GetCorsURL())
+                    .AllowCredentials();
             }));
 
             // Add application services.
