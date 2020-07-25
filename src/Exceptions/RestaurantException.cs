@@ -5,35 +5,32 @@ using hello.restaurant.api.Models;
 
 namespace hello.restaurant.api.Exceptions
 {
-    public class RestaurantException : Exception
+    public class RestaurantNotFoundException : Exception
     {
-        public RestaurantException()
+
+        private const string DEFAULT_MESSAGE = "Cargo not found";
+        public string rev { get; }
+        public string value { get; }
+
+        public RestaurantNotFoundException()
+           : base(DEFAULT_MESSAGE)
         {
         }
 
-        public RestaurantException(string message) : base(message)
+        public RestaurantNotFoundException(Guid id)
+            : base(string.Format("Cargo with id = {0} not found", id.ToString()))
         {
         }
 
-        public RestaurantException(string message, Exception innerException) : base(message, innerException)
+        public RestaurantNotFoundException(string message, Restaurant restaurant)
+            : base(message)
         {
         }
 
-        protected RestaurantException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-    }
-
-    public class RestaurantNotFoundException : RestaurantException
-    {
-        public RestaurantNotFoundException(Restaurant restaurant)
-            : base($"Restaurant {restaurant.Name}, ({restaurant.Id}) of {restaurant.Name} was not found.")
+        public RestaurantNotFoundException(string message, Exception inner)
+       : base(message, inner)
         {
         }
 
-        public RestaurantNotFoundException(string restaurantKey)
-            : base($"Restaurant {restaurantKey} of was not found.")
-        {
-        }
     }
 }

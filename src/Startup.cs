@@ -89,6 +89,9 @@ namespace hello.restaurant.api
                     .AllowCredentials();
             }));
 
+            //register memory cache
+            services.AddMemoryCache();
+
             // Add application services.
             //services.AddTransient<IEmailSender, AuthMessageSender>();
             //services.AddTransient<ISmsSender, AuthMessageSender>();
