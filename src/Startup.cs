@@ -25,6 +25,7 @@ using hello.restaurant.api.Services;
 using AutoMapper;
 using hello.restaurant.api.Mapper;
 using hello.restaurant.api.Providers;
+using hello.restaurant.api.Filters;
 
 namespace hello.restaurant.api
 {
@@ -121,6 +122,9 @@ namespace hello.restaurant.api
                     }
                 });
             });
+
+            //register custom filter
+            services.AddScoped<EnsureUserAuthorizeInAsync>();
 
             // ...
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

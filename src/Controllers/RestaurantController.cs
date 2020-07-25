@@ -18,11 +18,12 @@ using System.IO;
 using System.Net.Http;
 using hello.restaurant.api.Models;
 using hello.restaurant.api.Services;
+using hello.restaurant.api.Filters;
 
 namespace cvx.lct.vot.api.Controllers
 {
     //[Authorize]
-    //[ServiceFilter(typeof(EnsureUserAuthorizeInAsync))]
+    [ServiceFilter(typeof(EnsureUserAuthorizeInAsync))]
     [ApiVersion("1.0")]
     [Route("api/{version:apiVersion}/[controller]")]
     [ApiController]
