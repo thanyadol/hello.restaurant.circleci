@@ -11,7 +11,7 @@ namespace hello.restaurant.api.Services
 {
     public interface ICacheService
     {
-        IEnumerable<Restaurant> GetCachedUser();
+        IEnumerable<Restaurant> GetCachedRestaurant();
         void ClearCache();
     }
     public class CacheService : ICacheService
@@ -23,7 +23,7 @@ namespace hello.restaurant.api.Services
             _cacheProvider = cacheProvider;
         }
 
-        public IEnumerable<Restaurant> GetCachedUser()
+        public IEnumerable<Restaurant> GetCachedRestaurant()
         {
             return _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(CacheKeys.Restaurants);
         }

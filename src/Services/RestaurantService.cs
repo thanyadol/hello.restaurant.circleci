@@ -26,15 +26,40 @@ namespace hello.restaurant.api.Services
         private readonly IGoogleService _googleService;
         private readonly IMapper _autoMapper;
 
-        private readonly IMemoryCache _memoryCache;
+        //private readonly IMemoryCache _memoryCache;
 
-        public RestaurantService(IGoogleService googleService, IMapper autoMapper, IMemoryCache memoryCache)
+        public RestaurantService(IGoogleService googleService, IMapper autoMapper)//, IMemoryCache memoryCache)
         {
             _googleService = googleService ?? throw new ArgumentNullException(nameof(googleService));
             _autoMapper = autoMapper ?? throw new ArgumentNullException(nameof(autoMapper));
 
             //use memory to cache result from apis 
-            _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+            //_memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+        }
+
+        //
+        // Summary:
+        //      list a restaurant by keyword with basic cache memory
+        //
+        // Returns:
+        //      list of restaurant 
+        //
+        // Params:
+        //      keyword: keyword from UI e.g. Bang Sue
+        //
+        public async Task<IEnumerable<Restaurant>> ListAsync(string keyword)
+        {
+
+            var places = await _googleService.ListPlaceByTextSeachAsync(keyword, PlaceType.RESTAURANT.GetDescription());
+            if (!places.Any())
+            {
+                throw new RestaurantNotFoundException();
+            }
+
+            //mapping from  apis model to restaurant entity
+            var entities = _autoMapper.Map<List<Restaurant>>(places);
+            return entities;
+
         }
 
 
@@ -48,7 +73,7 @@ namespace hello.restaurant.api.Services
         // Params:
         //      keyword: keyword from UI e.g. Bang Sue
         //
-        public async Task<IEnumerable<Restaurant>> ListAsync(string keyword)
+        /*public async Task<IEnumerable<Restaurant>> ListAsync(string keyword)
         {
             var trimLowerKey = keyword.ToLower().Trim();
             //use memory to cache result from apis             var restaturantCache;
@@ -83,7 +108,7 @@ namespace hello.restaurant.api.Services
 
             return entities;
 
-        }
+        }*/
 
     }
 }

@@ -46,7 +46,7 @@ namespace cvx.lct.vot.api.Controllers
         // Params:
         //      keyword: keyword from UI e.g. Bang Sue
         //
-        [EnableCors("AllowCors")]
+        /*[EnableCors("AllowCors")]
         [Route("list")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status200OK)]
@@ -55,7 +55,7 @@ namespace cvx.lct.vot.api.Controllers
         {
             var restaurants = await _restaurantService.ListAsync(keyword);
             return Ok(restaurants);
-        }
+        }*/
 
         //
         // Summary:
@@ -69,14 +69,14 @@ namespace cvx.lct.vot.api.Controllers
         //      keyword: keyword from UI e.g. Bang Sue
         //
         [EnableCors("AllowCors")]
-        [Route("cache/list")]
+        [Route("list")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CacheRestaurantAsync(string keyword)
         {
             var restaurants = await _restaurantService.ListAsync(keyword);
-            var cacheEntry = restaurants.First();
+            var cacheEntry = restaurants;
 
             return Ok(cacheEntry);
         }

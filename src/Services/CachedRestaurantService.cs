@@ -11,20 +11,20 @@ namespace hello.restaurant.api.Services
     public class CachedRestaurantService : IRestaurantService
     {
 
-        private readonly RestaurantService _usersService;
+        private readonly RestaurantService _restaurantService;
         private readonly ICacheProvider _cacheProvider;
 
         private static readonly SemaphoreSlim GetUsersSemaphore = new SemaphoreSlim(1, 1);
 
-        public CachedRestaurantService(RestaurantService usersService, ICacheProvider cacheProvider)
+        public CachedRestaurantService(RestaurantService restaurantService, ICacheProvider cacheProvider)
         {
-            _usersService = usersService;
+            _restaurantService = restaurantService;
             _cacheProvider = cacheProvider;
         }
 
         public async Task<IEnumerable<Restaurant>> ListAsync(string keyword)
         {
-            return await GetCachedResponse(CacheKeys.Restaurants, () => _usersService.ListAsync(keyword));
+            return await GetCachedResponse(CacheKeys.Restaurants, () => _restaurantService.ListAsync(keyword));
         }
 
         private async Task<IEnumerable<Restaurant>> GetCachedResponse(string cacheKey, Func<Task<IEnumerable<Restaurant>>> func)

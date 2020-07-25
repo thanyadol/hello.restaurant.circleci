@@ -60,7 +60,7 @@ namespace hello.restaurant.api
             //.SetHandlerLifetime(TimeSpan.FromMinutes(5));
 
             //app service
-            services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddScoped<RestaurantService>();
             services.AddScoped<IRestaurantService, CachedRestaurantService>();
             services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<ICacheProvider, CacheProvider>();
