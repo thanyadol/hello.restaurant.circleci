@@ -1,3 +1,6 @@
 
 src/obj
 assets/logs
+
+src/bin
+obj

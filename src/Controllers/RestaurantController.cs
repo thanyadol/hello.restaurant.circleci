@@ -69,7 +69,7 @@ namespace cvx.lct.vot.api.Controllers
         //      keyword: keyword from UI e.g. Bang Sue
         //
         [EnableCors("AllowCors")]
-        [Route("list")]
+        [Route("cache/list")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status404NotFound)]
