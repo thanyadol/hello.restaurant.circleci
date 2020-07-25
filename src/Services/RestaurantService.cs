@@ -40,7 +40,7 @@ namespace hello.restaurant.api.Services
 
         //
         // Summary:
-        //      list a restaurant by keyword
+        //      list a restaurant by keyword with basic cache memory
         //
         // Returns:
         //      list of restaurant 

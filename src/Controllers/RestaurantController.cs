@@ -28,24 +28,58 @@ namespace cvx.lct.vot.api.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
+        private readonly ICacheService _cacheService;
         private readonly IRestaurantService _restaurantService;
-        public RestaurantController(IRestaurantService restaurantService)
+        public RestaurantController(IRestaurantService restaurantService, ICacheService cacheService)
         {
             _restaurantService = restaurantService ?? throw new ArgumentNullException(nameof(restaurantService));
+            _cacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
         }
 
+        //
+        // Summary:
+        //      list a restaurant by keyword with basic cache memory
+        //
+        // Returns:
+        //      list of restaurant 
+        //
+        // Params:
+        //      keyword: keyword from UI e.g. Bang Sue
+        //
         [EnableCors("AllowCors")]
         [Route("list")]
         [HttpGet]
-        [ProducesResponseType(typeof(Restaurant), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Restaurant), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ListAsync(string keyword)
         {
-
-            var pppp = await _restaurantService.ListAsync(keyword);
-            return Ok(pppp);
+            var restaurants = await _restaurantService.ListAsync(keyword);
+            return Ok(restaurants);
         }
 
+        //
+        // Summary:
+        //      list a restaurant by keyword with full implement cache memory
+        //      make this more reliable if there are multiple threads accessing our cache store
+        //
+        // Returns:
+        //      list of restaurant 
+        //
+        // Params:
+        //      keyword: keyword from UI e.g. Bang Sue
+        //
+        [EnableCors("AllowCors")]
+        [Route("list")]
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Restaurant>), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> CacheRestaurantAsync(string keyword)
+        {
+            var restaurants = await _restaurantService.ListAsync(keyword);
+            var cacheEntry = restaurants.First();
+
+            return Ok(cacheEntry);
+        }
 
     }
 }
