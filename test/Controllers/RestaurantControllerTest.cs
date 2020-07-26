@@ -17,6 +17,7 @@ using System.Linq;
 
 namespace hello.restaurant.api.test.Controllers
 {
+    //unit test for restaurant controllers
     public class RestaurantControllerTest
     {
         protected RestaurantController ControllerUnderTest { get; set; }
@@ -38,7 +39,7 @@ namespace hello.restaurant.api.test.Controllers
             .WriteTo.Console()
             .CreateLogger();
 
-                 //mock result
+            //mock result
             expectedRestaurants = new ReadOnlyCollection<Restaurant>(new List<Restaurant>
                 {
                     new Restaurant() {
@@ -57,7 +58,7 @@ namespace hello.restaurant.api.test.Controllers
 
         public class ListAsync : RestaurantControllerTest
         {
-            
+
             [Fact]
             public async void should_return_OkObjectResult_with_restaurants_with_out_cahce()
             {
@@ -117,7 +118,7 @@ namespace hello.restaurant.api.test.Controllers
 
                 //Assert.Same(expectedRestaurants, restaurants);
             }
-        
+
         }
     }
 }
