@@ -1,6 +1,6 @@
 
-src/obj
+./src/obj
 assets/logs
 
-src/bin
-obj
+./src/bin/*
+./src/obj/*

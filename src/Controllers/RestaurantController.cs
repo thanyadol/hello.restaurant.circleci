@@ -20,7 +20,7 @@ using hello.restaurant.api.Models;
 using hello.restaurant.api.Services;
 using hello.restaurant.api.Filters;
 
-namespace cvx.lct.vot.api.Controllers
+namespace hello.restaurant.api.Controllers
 {
     //[Authorize]
     [ServiceFilter(typeof(EnsureUserAuthorizeInAsync))]

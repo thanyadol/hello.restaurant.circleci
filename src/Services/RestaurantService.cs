@@ -17,7 +17,8 @@ namespace hello.restaurant.api.Services
 {
     public interface IRestaurantService
     {
-        Task<IEnumerable<Restaurant>> ListAsync(string keyword);
+        Task<IEnumerable<Restaurant>> 
+        ListAsync(string keyword);
 
     }
 
