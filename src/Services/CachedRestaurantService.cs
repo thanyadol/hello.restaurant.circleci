@@ -29,36 +29,36 @@ namespace hello.restaurant.api.Services
 
         private async Task<IEnumerable<Restaurant>> GetCachedResponse(string cacheKey, Func<Task<IEnumerable<Restaurant>>> func)
         {
-            var users = _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(cacheKey);
-            if (users != null) return users;
-            users = await func();
-            _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+            var restaurants = _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(cacheKey);
+            if (restaurants != null) return restaurants;
+            restaurants = await func();
+            _cacheProvider.SetCache(cacheKey, restaurants, DateTimeOffset.Now.AddDays(1));
 
-            return users;
+            return restaurants;
         }
 
         private async Task<IEnumerable<Restaurant>> GetCachedResponse(string cacheKey, SemaphoreSlim semaphore, Func<Task<IEnumerable<Restaurant>>> func)
         {
-            var users = _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(cacheKey);
+            var restaurants = _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(cacheKey);
 
-            if (users != null) return users;
+            if (restaurants != null) return restaurants;
             try
             {
                 await semaphore.WaitAsync();
-                users = _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(cacheKey); // Recheck to make sure it didn't populate before entering semaphore
-                if (users != null)
+                restaurants = _cacheProvider.GetFromCache<IEnumerable<Restaurant>>(cacheKey); // Recheck to make sure it didn't populate before entering semaphore
+                if (restaurants != null)
                 {
-                    return users;
+                    return restaurants;
                 }
-                users = await func();
-                _cacheProvider.SetCache(cacheKey, users, DateTimeOffset.Now.AddDays(1));
+                restaurants = await func();
+                _cacheProvider.SetCache(cacheKey, restaurants, DateTimeOffset.Now.AddDays(1));
             }
             finally
             {
                 semaphore.Release();
             }
 
-            return users;
+            return restaurants;
         }
     }
 }
